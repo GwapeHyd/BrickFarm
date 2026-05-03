@@ -18,6 +18,7 @@ public class BrickObject : MonoBehaviour
 
     [Header("Loots")]
     public GameObject leafPrefab;
+    public GameObject mushroomPrefab;
 
     [Header("VFX")]
     [SerializeField] private GameObject dustEffectPrefab;
@@ -36,6 +37,20 @@ public class BrickObject : MonoBehaviour
         }
     }
 
+    void UpdateSprite()
+    {
+        if (data == null) return;
+
+        if (data.damagedSprite != null && health <= maxHealth)
+        {
+            spriteRenderer.sprite = data.damagedSprite;
+        }
+        else
+        {
+            spriteRenderer.sprite = data.icon;
+        }
+    }
+
     void HandleHit(int damage)
     {
         if (animator != null)
@@ -44,6 +59,7 @@ public class BrickObject : MonoBehaviour
         }
 
         health -= damage;
+        UpdateSprite();
 
         if (health <= 0)
         {
@@ -51,6 +67,9 @@ public class BrickObject : MonoBehaviour
             {
                 case BrickType.Bush:
                     SpawnLeaf();
+                    break;
+                case BrickType.Mushroom:
+                    SpawnMushroom();
                     break;
                 // Ajouter d'autres types de briques et leurs loots ici
             }
@@ -80,7 +99,20 @@ public class BrickObject : MonoBehaviour
             }
         }
     }
-    
+
+    void SpawnMushroom()
+    {
+        if (mushroomPrefab != null)
+        {
+            var go = Instantiate(mushroomPrefab, transform.position + Vector3.down * 0.2f, Quaternion.identity);
+            AutoCollect autoCollect = go.GetComponent<AutoCollect>();
+            if (autoCollect != null)
+            {
+                autoCollect.playerData = playerData;
+                autoCollect.currencyType = CurrencyType.mushroom;
+            }
+        }
+    }
 
     void OnCollisionEnter2D(Collision2D collision)
     {

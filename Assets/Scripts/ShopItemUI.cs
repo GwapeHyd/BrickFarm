@@ -35,7 +35,7 @@ public class ShopItemUI : MonoBehaviour
         if (itemData == null || shopManager == null) return;
 
         int owned = shopManager.GetOwnedQuantity(itemData);
-        int cost = itemData.GetCurrentCostLeaf(owned);
+        int cost = itemData.GetCurrentCost(owned);
 
         if (costText != null)
             costText.text = cost + "";

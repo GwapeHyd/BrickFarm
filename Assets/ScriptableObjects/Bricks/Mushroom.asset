@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d158b3924dc538c4e8e48acf336a076f, type: 3}
+  m_Name: Mushroom
+  m_EditorClassIdentifier: Assembly-CSharp::BrickData
+  id: mushroom
+  maxHP: 2
+  icon: {fileID: -208393949, guid: 9840414ff5664394991830648b5d291a, type: 3}
+  damagedSprite: {fileID: -878497900, guid: 9840414ff5664394991830648b5d291a, type: 3}
+  prefab: {fileID: 9127615345946578199, guid: 8e21af7244f1f664d8965a1cad6439cb, type: 3}
+  brickType: 2
+  lootOnHit: []
+  lootOnDestroy: []

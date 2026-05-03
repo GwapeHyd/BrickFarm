@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8863e29411ba7c245943d761f086d0cd, type: 3}
+  m_Name: MushroomShopItem
+  m_EditorClassIdentifier: Assembly-CSharp::ShopItemData
+  displayName: Mushroom
+  brickData: {fileID: 11400000, guid: 4fb5a6c5dd938174683261a5ef49b715, type: 2}
+  baseCost: 10
+  costMultiplier: 1
+  currency: 2
+  hasUnlockCondition: 1
+  requiredBrickType: 0
+  requiredQuantity: 10

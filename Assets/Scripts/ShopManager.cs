@@ -39,16 +39,25 @@ public class ShopManager : MonoBehaviour
 
     public void TryBuy(ShopItemData item)
     {
-        if (item == null || !CanAfford(item)) return;
+        if (item == null || !CanAfford(item) || !IsUnlocked(item)) return;
 
         int owned = GetOwnedQuantity(item);
-        int cost = item.GetCurrentCostLeaf(owned);
+        int cost = item.GetCurrentCost(owned);
 
-        // Déduire la monnaie
-        if (item.currency == CurrencyType.leaf)
-            playerData.leaf -= cost;
-        else if (item.currency == CurrencyType.coin)
-            playerData.coin -= cost;
+        switch (item.currency)
+        {
+            case ShopCurrencyType.leaf:
+                playerData.leaf -= cost;
+                break;
+            case ShopCurrencyType.coin:
+                playerData.coin -= cost;
+                break;
+            case ShopCurrencyType.Bush:
+                var bushOwned = playerData.ownedBricks.Find(b => b.data != null && b.data.brickType == BrickType.Bush);
+                if (bushOwned != null)
+                    bushOwned.quantity -= cost;
+                break;  
+        }
 
         // Ajouter la brique dans ownedBricks
         var ownedBrick = playerData.ownedBricks.Find(b => b.data == item.brickData);
@@ -72,14 +81,28 @@ public class ShopManager : MonoBehaviour
     public bool CanAfford(ShopItemData item)
     {
         int owned = GetOwnedQuantity(item);
-        int cost = item.GetCurrentCostLeaf(owned);
+        int cost = item.GetCurrentCost(owned);
 
-        if (item.currency == CurrencyType.leaf)
-            return playerData.leaf >= cost;
-        else if (item.currency == CurrencyType.coin)
-            return playerData.coin >= cost;
+        switch (item.currency)
+        {
+            case ShopCurrencyType.leaf:
+                return playerData.leaf >= cost;
+            case ShopCurrencyType.coin:
+                return playerData.coin >= cost;
+            case ShopCurrencyType.Bush:
+                var bushOwned = playerData.ownedBricks.Find(b => b.data != null && b.data.brickType == BrickType.Bush);
+                return bushOwned != null && bushOwned.quantity >= cost;
+            default:
+                return false;
+        }
+    }
 
-        return false;
+    public bool IsUnlocked(ShopItemData item)
+    {
+        if (!item.hasUnlockCondition) return true;
+
+        var ownedBrick = playerData.ownedBricks.Find(b => b.data != null && b.data.brickType == item.requiredBrickType);
+        return ownedBrick != null && ownedBrick.quantity >= item.requiredQuantity;
     }
 
     public int GetOwnedQuantity(ShopItemData item)

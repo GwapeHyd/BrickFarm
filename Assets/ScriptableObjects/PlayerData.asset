@@ -16,7 +16,11 @@ MonoBehaviour:
   - data: {fileID: 11400000, guid: efd411a1227d1fe4dbc2b792338f1d89, type: 2}
     quantity: 5
     maxQuantity: 20
+  - data: {fileID: 11400000, guid: 4fb5a6c5dd938174683261a5ef49b715, type: 2}
+    quantity: 0
+    maxQuantity: 20
   damage: 1
   damageMultiplier: 1
   leaf: 0
+  mushroom: 0
   coin: 0

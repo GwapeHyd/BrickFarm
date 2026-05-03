@@ -21,6 +21,7 @@ public class PlayerData : ScriptableObject
 
     [Header("Currencies")]
     public int leaf = 0;
+    public int mushroom = 0;
     public int coin = 0;
 
 #if UNITY_EDITOR

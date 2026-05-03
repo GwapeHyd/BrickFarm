@@ -1,8 +1,8 @@
 using UnityEngine;
 using System.Collections;
 
-public enum CurrencyType { leaf, coin 
-}
+public enum CurrencyType { leaf, mushroom, coin }
+
 public class AutoCollect : MonoBehaviour
 {
     
@@ -14,7 +14,7 @@ public class AutoCollect : MonoBehaviour
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        uiManager = FindFirstObjectByType<UIManager>();
+        uiManager = FindAnyObjectByType<UIManager>();
         Collect();
     }
 
@@ -24,6 +24,9 @@ public class AutoCollect : MonoBehaviour
         {
             case CurrencyType.leaf:
                 playerData.leaf += 1; 
+                break;
+            case CurrencyType.mushroom:
+                playerData.mushroom += 1;
                 break;
             case CurrencyType.coin:
                 playerData.coin += 1; 

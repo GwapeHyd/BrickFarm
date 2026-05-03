@@ -7,6 +7,7 @@ public class BrickData : ScriptableObject
     public string id;
     public int maxHP;
     public Sprite icon;
+    public Sprite damagedSprite; // Sprite quand endommagé (optionnel)
     public GameObject prefab;
     public BrickType brickType;
 
@@ -18,7 +19,7 @@ public class BrickData : ScriptableObject
 [System.Serializable]
 public class LootChance
 {
-    public Sprite icon; // Ex: pièce, champignon
+    public Sprite icon;
     public int amount;
     [Range(0f, 1f)] public float chance;
 }
