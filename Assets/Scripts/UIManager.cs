@@ -6,6 +6,8 @@ public class UIManager : MonoBehaviour
     public TMPro.TextMeshProUGUI leafText;
     public TMPro.TextMeshProUGUI coinText;
     public TMPro.TextMeshProUGUI bushText;
+    public TMPro.TextMeshProUGUI mushText;
+    public TMPro.TextMeshProUGUI mushroomText;
 
     private void Start()
     {
@@ -19,6 +21,8 @@ public class UIManager : MonoBehaviour
             leafText.text = "" + playerData.leaf.ToString();
         if (coinText != null)
             coinText.text = "" + playerData.coin.ToString();
+        if (mushText != null)
+            mushText.text = "" + playerData.mushroom.ToString();
     }
 
     public void UpdateBrickUI()
@@ -33,6 +37,19 @@ public class UIManager : MonoBehaviour
             else
             {
                 bushText.text = "0";
+            }
+        }
+
+        if (mushroomText != null)
+        {
+            var mushroomData = playerData.ownedBricks.Find(b => b.data != null && b.data.brickType == BrickType.Mushroom);
+            if (mushroomData != null)
+            {
+                mushroomText.text = "" + mushroomData.quantity.ToString();
+            }
+            else
+            {
+                mushroomText.text = "0";
             }
         }
     }
