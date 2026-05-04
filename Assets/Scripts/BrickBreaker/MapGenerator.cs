@@ -21,6 +21,8 @@ public class MapGenerator : MonoBehaviour
     public List<Vector2Int> occupiedPositions = new List<Vector2Int>();
     public List<BrickObject> placedBricks = new List<BrickObject>();
 
+    public int ActiveBrickCount => placedBricks.Count(b => b != null);
+
     private void Start()
     {
         StartCoroutine(GenerateMapWithDelay());
@@ -29,6 +31,7 @@ public class MapGenerator : MonoBehaviour
     public IEnumerator GenerateMapWithDelay()
     {
         occupiedPositions.Clear();
+        placedBricks.RemoveAll(b => b == null);
 
         List<BrickData> bricksToSpawn = new List<BrickData>();
         foreach (var entry in playerData.ownedBricks)

@@ -78,7 +78,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -31567999
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: -1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 2119017158842680658, guid: 9840414ff5664394991830648b5d291a, type: 3}
@@ -170,7 +170,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -31567999
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 0}
@@ -307,5 +307,5 @@ MonoBehaviour:
   dustEffectPrefab: {fileID: 4379300759986260969, guid: ac4353b74fe36c74e8f05fd0a80b0204, type: 3}
   popupPrefab: {fileID: 2867366413499119328, guid: 794b0eeceb036f940bcfe50c45bd380e, type: 3}
   sporePrefab: {fileID: 7980931619254507355, guid: 9ec7eb537aa3004469a0073029a900c8, type: 3}
-  sporeCount: 3
   sporeSprayRadius: 2
+  spawnInvincibilityDuration: 0.5

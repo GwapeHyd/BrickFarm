@@ -28,28 +28,28 @@ public class Paddle : MonoBehaviour
     public AudioClip coinClip;
     public AudioSource audioSource;
 
+    private UpgradeManager upgradeManager;
+
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         ball = GameObject.FindGameObjectWithTag("Ball").GetComponent<Ball>();
+        upgradeManager = FindAnyObjectByType<UpgradeManager>();
     }
     void Update()
     {
-        if (Keyboard.current.tabKey.wasPressedThisFrame)
-            ToggleAutoMode();
-
-        if (!isControllable)
-        {
-            return;
-        }
-
-        if (autoMode)
-        {
+        if (upgradeManager != null && upgradeManager.IsAutoAimUnlocked())
             AutoMove();
-        }
         else
         {
-            FollowMouse();
+            if (!isControllable)
+            {
+                return;
+            }
+            else
+            {
+                FollowMouse();
+            }
         }
 
         WatchBall();

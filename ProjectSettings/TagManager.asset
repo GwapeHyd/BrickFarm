@@ -50,6 +50,9 @@ TagManager:
   - name: Walls
     uniqueID: 1342259931
     locked: 0
+  - name: Decor
+    uniqueID: 3785843683
+    locked: 0
   - name: Bricks
     uniqueID: 4263399297
     locked: 0
@@ -64,3 +67,4 @@ TagManager:
     locked: 0
   m_RenderingLayers:
   - Default
+  m_MigratedRenderPipelines: []

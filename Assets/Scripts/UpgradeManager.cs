@@ -95,6 +95,12 @@ public class UpgradeManager : MonoBehaviour
         return GetLevel(upgradeDataList[1]) >= 1;
     }
 
+    public bool IsExplorerUnlocked()
+    {
+        if (upgradeDataList.Count < 3) return false;
+        return GetLevel(upgradeDataList[2]) >= 1;
+    }
+
     public void RefreshAllUpgrades()
     {
         foreach (var ui in upgradeUIList)

@@ -7,9 +7,9 @@ public class UpgradeItemUI : MonoBehaviour
     [Header("Références UI")]
     public TextMeshProUGUI levelText;
     public TextMeshProUGUI nameText;
-    public TextMeshProUGUI costText;        // "10 mush"
-    public Button upgradeButton;            // bouton +
-    public Button itemClickArea;            // zone cliquable pour la description
+    public TextMeshProUGUI costText;        
+    public Button upgradeButton;           
+    public Button itemClickArea;            
 
     [Header("Description (partagée)")]
     public GameObject descriptionPanel;
@@ -40,13 +40,36 @@ public class UpgradeItemUI : MonoBehaviour
         if (data == null || manager == null) return;
 
         int level = manager.GetLevel(data);
-        levelText.text = $"Lv {level}";
-        nameText.text = data.upgradeName;
+        bool maxed = data.IsMaxed(level);
+        bool isOneShot = data.maxLevel == 1;
 
-        int cost = data.GetCost(level);
-        costText.text = CurrencyFormatter.Format(cost);
+        if (maxed)
+        {
+            levelText.text = $"<color=#FFD700>MAX</color>";
+            nameText.text = $"<color=#FFD700>{data.upgradeName}</color>";
+            if (costText != null)
+                costText.gameObject.SetActive(false);
+            if (upgradeButton != null)
+                upgradeButton.gameObject.SetActive(false);
+        }
+        else
+        {
+            if (costText != null)
+                costText.gameObject.SetActive(true);
+            if (upgradeButton != null)
+                upgradeButton.gameObject.SetActive(true);
+            
+            levelText.text = isOneShot ? "" : $"Lv {level}";
+            nameText.text = data.upgradeName;
 
-        upgradeButton.interactable = manager.CanAfford(data);
+            if (costText != null)
+            {
+                int cost = data.GetCost(level);
+                costText.text = CurrencyFormatter.Format(cost);
+            }
+
+            upgradeButton.interactable = manager.CanAfford(data);
+        }
     }
 
     void ShowDescription()

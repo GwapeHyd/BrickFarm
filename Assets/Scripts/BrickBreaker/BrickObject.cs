@@ -30,6 +30,12 @@ public class BrickObject : MonoBehaviour
     [SerializeField] private GameObject sporePrefab;        // prefab avec SporeProjectile
     [SerializeField] private float sporeSprayRadius = 2f;   // rayon de dispersion des cibles
 
+    [Header("Invincibilité au spawn")]
+    [SerializeField] private float spawnInvincibilityDuration = 0.5f;
+    private bool isInvincible = true;
+
+    private Color originalColor;
+
     private BrickAnimator animator;
 
     void Start()
@@ -43,6 +49,30 @@ public class BrickObject : MonoBehaviour
             maxHealth = data.maxHP;
             health = maxHealth;
         }
+
+        originalColor = spriteRenderer.color;
+
+        StartCoroutine(SpawnInvincibility());
+    }
+
+    private IEnumerator SpawnInvincibility()
+    {
+        isInvincible = true;
+
+        // Feedback visuel : clignotement
+        float elapsed  = 0f;
+        float blinkRate = 0.16f;
+        Color ghost    = new Color(originalColor.r, originalColor.g, originalColor.b, 0.35f);
+
+        while (elapsed < spawnInvincibilityDuration)
+        {
+            spriteRenderer.color = (Mathf.FloorToInt(elapsed / blinkRate) % 2 == 0) ? ghost : originalColor;
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        spriteRenderer.color = originalColor;
+        Debug.Log($"Brique {brickType} spawn invincibility ended.");
+        isInvincible = false;
     }
 
     void UpdateSprite()
@@ -61,6 +91,8 @@ public class BrickObject : MonoBehaviour
 
     void HandleHit(int damage)
     {
+        if (isInvincible) return;
+
         if (animator != null)
         {
             animator.StartCoroutine(animator.ShakeEffect());
