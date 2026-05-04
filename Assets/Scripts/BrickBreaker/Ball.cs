@@ -33,6 +33,8 @@ public class Ball : MonoBehaviour
     public UpgradeManager upgradeManager;
     [SerializeField] private float autoAimRandomOffSet = 8f;
 
+    private BrickObject currentAutoAimTarget;
+
     private float aimTimer = 0f;      // temps pour l'oscillation
     private Vector2 aimDirection = Vector2.up; // direction actuelle de visée
     private float lastCorrectionTime = -1f;
@@ -194,15 +196,13 @@ public class Ball : MonoBehaviour
             return;
         }
 
-        BrickObject nearest = FindNearestBrick();
-        if (nearest == null) return;
+        currentAutoAimTarget = FindNearestBrick();
+        if (currentAutoAimTarget == null) return;
 
-        Vector2 dir = (nearest.transform.position - transform.position).normalized;
+        Vector2 dir = (currentAutoAimTarget.transform.position - transform.position).normalized;
 
         float offset = Random.Range(-autoAimRandomOffSet, autoAimRandomOffSet);
         dir = (Vector2)(Quaternion.Euler(0, 0, offset) * dir);
-
-        if (dir.y < 0.15f) dir.y = 0.15f;
 
         rb.linearVelocity = dir.normalized * startSpeed;
     }
@@ -294,5 +294,49 @@ public class Ball : MonoBehaviour
         yield return new WaitForSeconds(squashDuration);
         transform.localScale = originalScale;
     }
+
+    private void OnDrawGizmos()
+{
+    if (currentAutoAimTarget == null) return;
+
+    Vector3 ballPos   = transform.position;
+    Vector3 targetPos = currentAutoAimTarget.transform.position;
+
+    // Croix sur la brick ciblée
+    Gizmos.color = Color.red;
+    float s = 0.15f;
+    Gizmos.DrawLine(targetPos + Vector3.left  * s, targetPos + Vector3.right * s);
+    Gizmos.DrawLine(targetPos + Vector3.up    * s, targetPos + Vector3.down  * s);
+
+    // Cercle autour de la cible
+    DrawGizmoCircle(targetPos, 0.3f, Color.red);
+
+    // Ligne balle → cible
+    Gizmos.color = Color.yellow;
+    Gizmos.DrawLine(ballPos, targetPos);
+
+    // Direction effective de la vélocité (en vert)
+    if (Application.isPlaying && rb != null && rb.linearVelocity.magnitude > 0.1f)
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(ballPos, ballPos + (Vector3)rb.linearVelocity.normalized * 1.5f);
+    }
+}
+
+// Helper : cercle en gizmo (Unity n'en a pas nativement en 2D)
+private void DrawGizmoCircle(Vector3 center, float radius, Color color)
+{
+    Gizmos.color = color;
+    int segments = 20;
+    float angleStep = 360f / segments;
+    Vector3 prev = center + new Vector3(radius, 0f, 0f);
+    for (int i = 1; i <= segments; i++)
+    {
+        float angle = i * angleStep * Mathf.Deg2Rad;
+        Vector3 next = center + new Vector3(Mathf.Cos(angle) * radius, Mathf.Sin(angle) * radius, 0f);
+        Gizmos.DrawLine(prev, next);
+        prev = next;
+    }
+}
 
 }
