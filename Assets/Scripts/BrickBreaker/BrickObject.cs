@@ -17,11 +17,12 @@ public class BrickObject : MonoBehaviour
     private int maxHealth;
 
     [Header("Loots")]
-    public GameObject leafPrefab;
-    public GameObject mushroomPrefab;
+    [SerializeField] private GameObject leafPrefab;
+    [SerializeField] private GameObject mushroomPrefab;
 
     [Header("VFX")]
     [SerializeField] private GameObject dustEffectPrefab;
+    [SerializeField] private GameObject popupPrefab;
 
     private BrickAnimator animator;
 
@@ -112,6 +113,14 @@ public class BrickObject : MonoBehaviour
                 autoCollect.currencyType = CurrencyType.mushroom;
             }
         }
+    }
+
+    void ShowFloatingPopup(string text, Vector3 worldPos, Color color)
+    {
+        if (popupPrefab == null) return;
+
+        GameObject popup = Instantiate(popupPrefab, worldPos, Quaternion.identity);
+        popup.GetComponent<FloatingPopup>().Init(text, color);
     }
 
     void OnCollisionEnter2D(Collision2D collision)
