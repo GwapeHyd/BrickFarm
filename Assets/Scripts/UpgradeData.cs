@@ -8,6 +8,7 @@ public class UpgradeData : ScriptableObject
 
     [Header("Coût (x10 par niveau)")]
     public int baseCost = 1;
+    public int maxLevel = 0;
 
     [Header("Effet")]
     public float baseChance = 0f;    
@@ -15,21 +16,23 @@ public class UpgradeData : ScriptableObject
     public int baseSpores = 0;
     public int sporesPerLevel = 1; // +1 spore par niveau
 
-    /// <summary>Coût pour passer du niveau currentLevel au niveau suivant.</summary>
     public int GetCost(int currentLevel)
     {
         return Mathf.RoundToInt(baseCost * Mathf.Pow(10, currentLevel));
     }
 
-    /// <summary>Chance totale (0..1) au niveau donné.</summary>
     public float GetChance(int level)
     {
         return baseChance + chancePerLevel * level;
     }
 
-    /// <summary>Nombre total de spores au niveau donné.</summary>
     public int GetSporeCount(int level)
     {
         return baseSpores + sporesPerLevel * level;
+    }
+
+    public bool IsMaxed(int level)
+    {
+        return maxLevel > 0 && level >= maxLevel;
     }
 }

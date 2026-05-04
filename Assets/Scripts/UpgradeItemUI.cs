@@ -54,12 +54,13 @@ public class UpgradeItemUI : MonoBehaviour
         if (descriptionPanel == null || descriptionText == null) return;
 
         int level = manager.GetLevel(data);
+        string extra = data.IsMaxed(level) ? "\n<color=#FFD700>— ACTIVÉ —</color>" : "";
         float chancePct = data.GetChance(level) * 100f;
 
         descriptionText.text =
             $"<b>{data.upgradeName}</b>  (Lv {level})\n" +
             $"{data.description}\n" +
-            $"Chance actuelle : {chancePct:0}%";
+            (chancePct > 0 ? $"\nChance actuelle : <b>{chancePct:0}%" : "") + extra;
 
         TogglePanel();
     }

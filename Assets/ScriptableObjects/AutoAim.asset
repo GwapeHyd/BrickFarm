@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1c4d0be19ff3e4c408312823abd4fe54, type: 3}
-  m_Name: SporeExplosion
+  m_Name: AutoAim
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
-  upgradeName: Spore Explosion
-  description: Mushroom bricks have X% chance to spray explosiv spore when destroyed
-  baseCost: 1
-  maxLevel: 10
-  baseChance: 0.2
-  chancePerLevel: 0.08
+  upgradeName: AutoAim
+  description: Ball now aim at bricks
+  baseCost: 20
+  maxLevel: 1
+  baseChance: 0
+  chancePerLevel: 0
   baseSpores: 0
-  sporesPerLevel: 1
+  sporesPerLevel: 0

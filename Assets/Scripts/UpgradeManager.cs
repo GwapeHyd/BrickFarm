@@ -44,7 +44,9 @@ public class UpgradeManager : MonoBehaviour
         uiManager.UpdateCurrencyUI();
         RefreshAllUpgrades();
 
-        Debug.Log($"Upgrade acheté : {upgrade.upgradeName} → Lv {levels[upgrade]}");
+        int lvl = levels[upgrade];
+
+        Debug.Log($"[{upgrade.upgradeName}] Lv {lvl} — unlocked: {upgrade.IsMaxed(lvl)}");
     }
 
     /// <summary>Retourne la chance de Spore Explosion (upgrade index 0), ou 0 si non acheté.</summary>
@@ -60,6 +62,12 @@ public class UpgradeManager : MonoBehaviour
         if (upgradeDataList.Count == 0) return 0;
         int lvl = GetLevel(upgradeDataList[0]);
         return upgradeDataList[0].GetSporeCount(lvl);
+    }
+
+    public bool IsAutoAimUnlocked()
+    {
+        if (upgradeDataList.Count < 2) return false;
+        return GetLevel(upgradeDataList[1]) >= 1;
     }
 
     public void RefreshAllUpgrades()

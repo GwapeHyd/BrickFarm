@@ -29,6 +29,10 @@ public class Ball : MonoBehaviour
     public float aimLength = 2f;      // longueur de la ligne
     public LineRenderer aimLine;      // assigné dans l'inspecteur ou via code
 
+    [Header("AutoAim")]
+    public UpgradeManager upgradeManager;
+    [SerializeField] private float autoAimRandomOffSet = 8f;
+
     private float aimTimer = 0f;      // temps pour l'oscillation
     private Vector2 aimDirection = Vector2.up; // direction actuelle de visée
     private float lastCorrectionTime = -1f;
@@ -183,6 +187,44 @@ public class Ball : MonoBehaviour
         }
     }
 
+    private void ApplyAutoAim()
+    {
+        if (upgradeManager == null || !upgradeManager.IsAutoAimUnlocked())
+        {
+            return;
+        }
+
+        BrickObject nearest = FindNearestBrick();
+        if (nearest == null) return;
+
+        Vector2 dir = (nearest.transform.position - transform.position).normalized;
+
+        float offset = Random.Range(-autoAimRandomOffSet, autoAimRandomOffSet);
+        dir = (Vector2)(Quaternion.Euler(0, 0, offset) * dir);
+
+        if (dir.y < 0.15f) dir.y = 0.15f;
+
+        rb.linearVelocity = dir.normalized * startSpeed;
+    }
+
+    private BrickObject FindNearestBrick()
+    {
+        BrickObject[] bricks = FindObjectsByType<BrickObject>();
+        BrickObject nearest = null;
+        float minDist = float.MaxValue;
+
+        foreach (var brick in bricks)
+        {
+            float d = Vector2.Distance(transform.position, brick.transform.position);
+            if (d < minDist)
+            {
+                minDist = d;
+                nearest = brick;
+            }
+        }
+        return nearest;
+    }
+
     private void CorrectBounceAngle()
     {
         Vector2 vel = rb.linearVelocity;
@@ -216,15 +258,12 @@ public class Ball : MonoBehaviour
         // Effet sonore
         if (collision.gameObject.CompareTag("Brick"))
         {
-            audioSource.PlayOneShot(brickClip);
+            if (brickClip) audioSource.PlayOneShot(brickClip);
         }
         else if (collision.gameObject.CompareTag("Unbreakable") || collision.gameObject.CompareTag("Walls") || collision.gameObject.CompareTag("Paddle"))
         {
-            audioSource.PlayOneShot(unbreakableClip);
-        }
-        else if (collision.gameObject.CompareTag("Enemy"))
-        {
-            audioSource.PlayOneShot(enemyClip);
+            if (unbreakableClip) audioSource.PlayOneShot(unbreakableClip);
+            ApplyAutoAim();
         }
 
         // Effet visuel d'impact
