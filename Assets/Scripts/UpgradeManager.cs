@@ -13,18 +13,41 @@ public class UpgradeManager : MonoBehaviour
 
     private Dictionary<UpgradeData, int> levels = new Dictionary<UpgradeData, int>();
 
-    private void Start()
+    private void Awake()
     {
+        // Initialise le dictionnaire à 0 — sera écrasé par SaveManager.Load() si save existante
+        levels.Clear();
         foreach (var upgrade in upgradeDataList)
             levels[upgrade] = 0;
+    }
 
+    private void Start()
+    {
+        // Setup UI seulement — les levels sont déjà corrects (chargés dans GameManager.Awake)
         for (int i = 0; i < upgradeDataList.Count && i < upgradeUIList.Count; i++)
             upgradeUIList[i].Setup(upgradeDataList[i], this);
+
+        RefreshAllUpgrades();
     }
 
     public int GetLevel(UpgradeData upgrade)
     {
         return levels.TryGetValue(upgrade, out int lvl) ? lvl : 0;
+    }
+
+    public void SetLevel(UpgradeData upgrade, int level)
+    {
+        if (levels.ContainsKey(upgrade))
+            levels[upgrade] = Mathf.Max(0, level);
+        else
+            levels[upgrade] = Mathf.Max(0, level);
+
+        RefreshAllUpgrades();
+    }
+
+    public void ApplyLoadedLevels()
+    {
+        RefreshAllUpgrades();
     }
 
     public bool CanAfford(UpgradeData upgrade)
@@ -70,16 +93,6 @@ public class UpgradeManager : MonoBehaviour
     {
         if (upgradeDataList.Count < 2) return false;
         return GetLevel(upgradeDataList[1]) >= 1;
-    }
-
-    public void SetLevel(UpgradeData upgrade, int level)
-    {
-        if (levels.ContainsKey(upgrade))
-            levels[upgrade] = Mathf.Max(0, level);
-        else
-            levels[upgrade] = Mathf.Max(0, level);
-
-        RefreshAllUpgrades();
     }
 
     public void RefreshAllUpgrades()

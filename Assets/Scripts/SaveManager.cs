@@ -145,6 +145,8 @@ public class SaveManager : MonoBehaviour
                 else
                     Debug.LogWarning($"[SaveManager] Upgrade introuvable : '{saved.upgradeName}'");
             }
+
+            upgradeManager.ApplyLoadedLevels();
         }
 
         Debug.Log("[SaveManager] Chargement OK.");
