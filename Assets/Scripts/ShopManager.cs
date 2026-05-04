@@ -52,11 +52,14 @@ public class ShopManager : MonoBehaviour
             case ShopCurrencyType.coin:
                 playerData.coin -= cost;
                 break;
+            case ShopCurrencyType.mush:
+                playerData.mush -= cost;
+                break;
             case ShopCurrencyType.Bush:
                 var bushOwned = playerData.ownedBricks.Find(b => b.data != null && b.data.brickType == BrickType.Bush);
                 if (bushOwned != null)
                     bushOwned.quantity -= cost;
-                break;  
+                break;
         }
 
         // Ajouter la brique dans ownedBricks
@@ -89,6 +92,8 @@ public class ShopManager : MonoBehaviour
                 return playerData.leaf >= cost;
             case ShopCurrencyType.coin:
                 return playerData.coin >= cost;
+            case ShopCurrencyType.mush:
+                return playerData.mush >= cost;
             case ShopCurrencyType.Bush:
                 var bushOwned = playerData.ownedBricks.Find(b => b.data != null && b.data.brickType == BrickType.Bush);
                 return bushOwned != null && bushOwned.quantity >= cost;

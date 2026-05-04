@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public enum ShopCurrencyType { leaf, coin, Bush }
+public enum ShopCurrencyType { leaf, coin, Bush, mush }
 
 [CreateAssetMenu(fileName = "New ShopItem", menuName = "BrickFarm/ShopItemData")]
 public class ShopItemData : ScriptableObject

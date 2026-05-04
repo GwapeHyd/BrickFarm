@@ -7,6 +7,8 @@ public class BrickObject : MonoBehaviour
     public PlayerData playerData;
     public BrickType brickType;
     public BrickData data;
+
+    private UpgradeManager upgradeManager;
     private SpriteRenderer spriteRenderer;
 
     public int gridX;
@@ -24,12 +26,16 @@ public class BrickObject : MonoBehaviour
     [SerializeField] private GameObject dustEffectPrefab;
     [SerializeField] private GameObject popupPrefab;
 
+    [Header("Spore Explosion")]
+    [SerializeField] private float sporeExplosionRadius = 1.5f;
+
     private BrickAnimator animator;
 
     void Start()
     {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         animator = GetComponentInChildren<BrickAnimator>();
+        upgradeManager = FindAnyObjectByType<UpgradeManager>();
         if (data != null && data.icon != null)
         {
             spriteRenderer.sprite = data.icon;
@@ -71,11 +77,37 @@ public class BrickObject : MonoBehaviour
                     break;
                 case BrickType.Mushroom:
                     SpawnMushroom();
+                    TrySporeExplosion();
                     break;
                 // Ajouter d'autres types de briques et leurs loots ici
             }
             SpawnDustEffect();
             Destroy(gameObject);
+        }
+    }
+
+    public void TakeExplosionDamage(int damage)
+    {
+        HandleHit(damage);
+    }
+
+    void TrySporeExplosion()
+    {
+        if (upgradeManager == null) return;
+        float chance = upgradeManager.GetSporeExplosionChance();
+        if (chance <= 0f) return;
+        if (Random.value > chance) return;
+
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, sporeExplosionRadius);
+        foreach (var hit in hits)
+        {
+            if (hit.gameObject == gameObject) continue;
+            BrickObject other = hit.GetComponent<BrickObject>();
+            if (other != null)
+            {
+                int dmg = playerData.damage * (int)playerData.damageMultiplier;
+                other.TakeExplosionDamage(dmg);
+            }
         }
     }
 

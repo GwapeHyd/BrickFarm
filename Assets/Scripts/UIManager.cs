@@ -22,7 +22,7 @@ public class UIManager : MonoBehaviour
         if (coinText != null)
             coinText.text = "" + playerData.coin.ToString();
         if (mushText != null)
-            mushText.text = "" + playerData.mushroom.ToString();
+            mushText.text = "" + playerData.mush.ToString();
     }
 
     public void UpdateBrickUI()

@@ -8,7 +8,7 @@ public class BrickWatcher : MonoBehaviour
 
     private void Start()
     {
-        ball = FindFirstObjectByType<Ball>();
+        ball = FindAnyObjectByType<Ball>();
     }
 
     private void Update()

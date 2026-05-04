@@ -38,7 +38,7 @@ public class ShopItemUI : MonoBehaviour
         int cost = itemData.GetCurrentCost(owned);
 
         if (costText != null)
-            costText.text = cost + "";
+            costText.text = CurrencyFormatter.Format(cost);
 
         // Griser le bouton si pas assez de resources
         bool canAfford = shopManager.CanAfford(itemData);

@@ -21,7 +21,7 @@ public class PlayerData : ScriptableObject
 
     [Header("Currencies")]
     public int leaf = 0;
-    public int mushroom = 0;
+    public int mush = 0;
     public int coin = 0;
 
 #if UNITY_EDITOR
@@ -30,7 +30,8 @@ public class PlayerData : ScriptableObject
     {
         leaf = 0;
         coin = 0;
-        damage = 0;
+        mush = 0;
+        damage = 1;
         damageMultiplier = 1f;
         foreach (var ownedBrick in ownedBricks)
         {

@@ -31,7 +31,7 @@ public class AutoCollect : MonoBehaviour
                 playerData.leaf += 1; 
                 break;
             case CurrencyType.mushroom:
-                playerData.mushroom += 1;
+                playerData.mush += 1;
                 break;
             case CurrencyType.coin:
                 playerData.coin += 1; 
