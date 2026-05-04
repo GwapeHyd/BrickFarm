@@ -28,7 +28,6 @@ public class BrickObject : MonoBehaviour
 
     [Header("Spore Explosion")]
     [SerializeField] private GameObject sporePrefab;        // prefab avec SporeProjectile
-    [SerializeField] private int sporeCount = 3;            // nombre de spores lancées
     [SerializeField] private float sporeSprayRadius = 2f;   // rayon de dispersion des cibles
 
     private BrickAnimator animator;
@@ -100,11 +99,12 @@ public class BrickObject : MonoBehaviour
         float chance = upgradeManager.GetSporeExplosionChance();
         if (chance <= 0f || Random.value > chance) return;
 
+        int count = upgradeManager.GetSporeCount();
         int dmg = playerData != null
             ? playerData.damage * (int)playerData.damageMultiplier
             : 1;
 
-        for (int i = 0; i < sporeCount; i++)
+        for (int i = 0; i < count; i++)
         {
             // Position cible aléatoire dans le rayon de spray
             Vector2 offset = Random.insideUnitCircle * sporeSprayRadius;

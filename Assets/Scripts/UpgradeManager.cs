@@ -55,6 +55,13 @@ public class UpgradeManager : MonoBehaviour
         return lvl > 0 ? upgradeDataList[0].GetChance(lvl) : 0f;
     }
 
+    public int GetSporeCount()
+    {
+        if (upgradeDataList.Count == 0) return 0;
+        int lvl = GetLevel(upgradeDataList[0]);
+        return upgradeDataList[0].GetSporeCount(lvl);
+    }
+
     public void RefreshAllUpgrades()
     {
         foreach (var ui in upgradeUIList)

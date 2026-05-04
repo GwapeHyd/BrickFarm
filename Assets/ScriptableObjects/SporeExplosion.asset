@@ -15,5 +15,7 @@ MonoBehaviour:
   upgradeName: Spore Explosion
   description: Mushroom bricks have X% chance to spray explosiv spore when destroyed
   baseCost: 1
-  baseChance: 1
-  chancePerLevel: 0
+  baseChance: 0
+  chancePerLevel: 0.1
+  baseSpores: 0
+  sporesPerLevel: 1

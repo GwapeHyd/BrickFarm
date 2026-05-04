@@ -7,11 +7,13 @@ public class UpgradeData : ScriptableObject
     [TextArea] public string description;
 
     [Header("Coût (x10 par niveau)")]
-    public int baseCost = 10;
+    public int baseCost = 1;
 
     [Header("Effet")]
-    public float baseChance = 0.05f;    // 5% de base
-    public float chancePerLevel = 0.02f; // +2% par niveau
+    public float baseChance = 0f;    
+    public float chancePerLevel = 0.10f; // +10% par niveau
+    public int baseSpores = 0;
+    public int sporesPerLevel = 1; // +1 spore par niveau
 
     /// <summary>Coût pour passer du niveau currentLevel au niveau suivant.</summary>
     public int GetCost(int currentLevel)
@@ -23,5 +25,11 @@ public class UpgradeData : ScriptableObject
     public float GetChance(int level)
     {
         return baseChance + chancePerLevel * level;
+    }
+
+    /// <summary>Nombre total de spores au niveau donné.</summary>
+    public int GetSporeCount(int level)
+    {
+        return baseSpores + sporesPerLevel * level;
     }
 }
