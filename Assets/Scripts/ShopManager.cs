@@ -78,6 +78,8 @@ public class ShopManager : MonoBehaviour
         uiManager.UpdateBrickUI();
         RefreshAllItems();
 
+        GameManager.SaveNow();
+
         Debug.Log($"Acheté : {item.displayName} pour {cost} {item.currency}");
     }
 

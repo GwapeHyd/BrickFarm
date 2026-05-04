@@ -1535,6 +1535,7 @@ GameObject:
   m_Component:
   - component: {fileID: 455320141}
   - component: {fileID: 455320140}
+  - component: {fileID: 455320142}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1555,6 +1556,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   playerData: {fileID: 11400000, guid: 6fbb1cee2af161f4db3737b480aabeec, type: 2}
+  saveManager: {fileID: 455320142}
+  uiManager: {fileID: 184368964}
 --- !u!4 &455320141
 Transform:
   m_ObjectHideFlags: 0
@@ -1570,6 +1573,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &455320142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 455320139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cadd8371766ec7e4aaf0779c68edf7ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SaveManager
+  playerData: {fileID: 11400000, guid: 6fbb1cee2af161f4db3737b480aabeec, type: 2}
+  upgradeManager: {fileID: 1181740573}
+  allBrickDataAssets:
+  - {fileID: 11400000, guid: efd411a1227d1fe4dbc2b792338f1d89, type: 2}
+  - {fileID: 11400000, guid: 4fb5a6c5dd938174683261a5ef49b715, type: 2}
 --- !u!1 &510193222
 GameObject:
   m_ObjectHideFlags: 0
@@ -12022,7 +12042,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1861910764}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -13731,6 +13751,6 @@ SceneRoots:
   - {fileID: 184368963}
   - {fileID: 1163275952}
   - {fileID: 602186972}
-  - {fileID: 204095863}
   - {fileID: 1861910767}
+  - {fileID: 204095863}
   - {fileID: 455320141}

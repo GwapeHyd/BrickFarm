@@ -46,6 +46,8 @@ public class UpgradeManager : MonoBehaviour
 
         int lvl = levels[upgrade];
 
+        GameManager.SaveNow();
+
         Debug.Log($"[{upgrade.upgradeName}] Lv {lvl} — unlocked: {upgrade.IsMaxed(lvl)}");
     }
 
@@ -68,6 +70,16 @@ public class UpgradeManager : MonoBehaviour
     {
         if (upgradeDataList.Count < 2) return false;
         return GetLevel(upgradeDataList[1]) >= 1;
+    }
+
+    public void SetLevel(UpgradeData upgrade, int level)
+    {
+        if (levels.ContainsKey(upgrade))
+            levels[upgrade] = Mathf.Max(0, level);
+        else
+            levels[upgrade] = Mathf.Max(0, level);
+
+        RefreshAllUpgrades();
     }
 
     public void RefreshAllUpgrades()
