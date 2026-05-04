@@ -20,14 +20,16 @@ public class BrickObject : MonoBehaviour
 
     [Header("Loots")]
     [SerializeField] private GameObject leafPrefab;
-    [SerializeField] private GameObject mushroomPrefab;
+    [SerializeField] private GameObject mushPrefab;
 
     [Header("VFX")]
     [SerializeField] private GameObject dustEffectPrefab;
     [SerializeField] private GameObject popupPrefab;
 
     [Header("Spore Explosion")]
-    [SerializeField] private float sporeExplosionRadius = 1.5f;
+    [SerializeField] private GameObject sporePrefab;        // prefab avec SporeProjectile
+    [SerializeField] private int sporeCount = 3;            // nombre de spores lancées
+    [SerializeField] private float sporeSprayRadius = 2f;   // rayon de dispersion des cibles
 
     private BrickAnimator animator;
 
@@ -76,7 +78,7 @@ public class BrickObject : MonoBehaviour
                     SpawnLeaf();
                     break;
                 case BrickType.Mushroom:
-                    SpawnMushroom();
+                    SpawnMush();
                     TrySporeExplosion();
                     break;
                 // Ajouter d'autres types de briques et leurs loots ici
@@ -93,20 +95,28 @@ public class BrickObject : MonoBehaviour
 
     void TrySporeExplosion()
     {
-        if (upgradeManager == null) return;
-        float chance = upgradeManager.GetSporeExplosionChance();
-        if (chance <= 0f) return;
-        if (Random.value > chance) return;
+        if (upgradeManager == null || sporePrefab == null) return;
 
-        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, sporeExplosionRadius);
-        foreach (var hit in hits)
+        float chance = upgradeManager.GetSporeExplosionChance();
+        if (chance <= 0f || Random.value > chance) return;
+
+        int dmg = playerData != null
+            ? playerData.damage * (int)playerData.damageMultiplier
+            : 1;
+
+        for (int i = 0; i < sporeCount; i++)
         {
-            if (hit.gameObject == gameObject) continue;
-            BrickObject other = hit.GetComponent<BrickObject>();
-            if (other != null)
+            // Position cible aléatoire dans le rayon de spray
+            Vector2 offset = Random.insideUnitCircle * sporeSprayRadius;
+            Vector3 target = transform.position + new Vector3(offset.x, offset.y, 0f);
+
+            GameObject sporeGO = Instantiate(sporePrefab, transform.position, Quaternion.identity);
+            SporeProjectile spore = sporeGO.GetComponent<SporeProjectile>();
+            if (spore != null)
             {
-                int dmg = playerData.damage * (int)playerData.damageMultiplier;
-                other.TakeExplosionDamage(dmg);
+                spore.targetPosition = target;
+                spore.damage = dmg;
+                spore.playerData = playerData;
             }
         }
     }
@@ -133,16 +143,16 @@ public class BrickObject : MonoBehaviour
         }
     }
 
-    void SpawnMushroom()
+    void SpawnMush()
     {
-        if (mushroomPrefab != null)
+        if (mushPrefab != null)
         {
-            var go = Instantiate(mushroomPrefab, transform.position + Vector3.down * 0.2f, Quaternion.identity);
+            var go = Instantiate(mushPrefab, transform.position + Vector3.down * 0.2f, Quaternion.identity);
             AutoCollect autoCollect = go.GetComponent<AutoCollect>();
             if (autoCollect != null)
             {
                 autoCollect.playerData = playerData;
-                autoCollect.currencyType = CurrencyType.mushroom;
+                autoCollect.currencyType = CurrencyType.mush;
             }
         }
     }

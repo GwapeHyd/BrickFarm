@@ -61,6 +61,12 @@ public class UpgradeItemUI : MonoBehaviour
             $"{data.description}\n" +
             $"Chance actuelle : {chancePct:0}%";
 
-        descriptionPanel.SetActive(true);
+        TogglePanel();
+    }
+
+    void TogglePanel()
+    {
+        if (descriptionPanel != null)
+            descriptionPanel.SetActive(!descriptionPanel.activeSelf);
     }
 }

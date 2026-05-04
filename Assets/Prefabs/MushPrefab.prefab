@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4602131112400218048}
   - component: {fileID: 6337537436316658436}
   m_Layer: 0
-  m_Name: MushroomPrefab
+  m_Name: MushPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -104,5 +104,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b28f13efa7181e4caceea620b2bafbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AutoCollect
-  playerData: {fileID: 0}
+  playerData: {fileID: 11400000, guid: 6fbb1cee2af161f4db3737b480aabeec, type: 2}
   currencyType: 1

@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public enum CurrencyType { leaf, mushroom, coin }
+public enum CurrencyType { leaf, mush, coin }
 
 public class AutoCollect : MonoBehaviour
 {
@@ -10,11 +10,13 @@ public class AutoCollect : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     public CurrencyType currencyType;
     private UIManager uiManager;
+    private UpgradeManager upgradeManager;
 
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         uiManager = FindAnyObjectByType<UIManager>();
+        upgradeManager = FindAnyObjectByType<UpgradeManager>();
         Collect();
     }
 
@@ -30,7 +32,7 @@ public class AutoCollect : MonoBehaviour
             case CurrencyType.leaf:
                 playerData.leaf += 1; 
                 break;
-            case CurrencyType.mushroom:
+            case CurrencyType.mush:
                 playerData.mush += 1;
                 break;
             case CurrencyType.coin:
@@ -41,6 +43,10 @@ public class AutoCollect : MonoBehaviour
         StartCoroutine(FadeAndDestroy());
 
         uiManager.UpdateCurrencyUI();
+        if (currencyType == CurrencyType.mush)
+        {
+            upgradeManager.RefreshAllUpgrades();
+        }
     }
 
     private IEnumerator FadeAndDestroy()

@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
   upgradeName: Spore Explosion
   description: Mushroom bricks have X% chance to spray explosiv spore when destroyed
-  baseCost: 10
-  baseChance: 0.05
-  chancePerLevel: 0.02
+  baseCost: 1
+  baseChance: 1
+  chancePerLevel: 0
