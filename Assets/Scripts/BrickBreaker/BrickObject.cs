@@ -59,19 +59,31 @@ public class BrickObject : MonoBehaviour
     {
         isInvincible = true;
 
-        // Feedback visuel : clignotement
-        float elapsed  = 0f;
-        float blinkRate = 0.16f;
-        Color ghost    = new Color(originalColor.r, originalColor.g, originalColor.b, 0.35f);
+        
+        float appearTime = 0f;
+        BrickAnimator brickAnim = GetComponentInChildren<BrickAnimator>();
+        if (brickAnim != null)
+            appearTime = brickAnim.appearTime;
 
-        while (elapsed < spawnInvincibilityDuration)
+        yield return new WaitForSeconds(appearTime + 0.05f);
+
+        
+        Color original = spriteRenderer.color;
+        Color ghost    = new Color(original.r, original.g, original.b, 0.35f);
+
+        float elapsed   = 0f;
+        float blinkRate = 0.12f;
+        float blinkDuration = spawnInvincibilityDuration;
+
+        while (elapsed < blinkDuration)
         {
-            spriteRenderer.color = (Mathf.FloorToInt(elapsed / blinkRate) % 2 == 0) ? ghost : originalColor;
+            spriteRenderer.color = (Mathf.FloorToInt(elapsed / blinkRate) % 2 == 0) ? ghost : original;
             elapsed += Time.deltaTime;
             yield return null;
         }
-        spriteRenderer.color = originalColor;
-        Debug.Log($"Brique {brickType} spawn invincibility ended.");
+
+    
+        spriteRenderer.color = original;
         isInvincible = false;
     }
 

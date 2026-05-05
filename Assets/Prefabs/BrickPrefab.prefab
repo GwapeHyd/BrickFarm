@@ -308,4 +308,4 @@ MonoBehaviour:
   popupPrefab: {fileID: 2867366413499119328, guid: 794b0eeceb036f940bcfe50c45bd380e, type: 3}
   sporePrefab: {fileID: 7980931619254507355, guid: 9ec7eb537aa3004469a0073029a900c8, type: 3}
   sporeSprayRadius: 2
-  spawnInvincibilityDuration: 0.5
+  spawnInvincibilityDuration: 0.25
