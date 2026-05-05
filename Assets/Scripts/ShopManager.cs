@@ -66,6 +66,12 @@ public class ShopManager : MonoBehaviour
         var ownedBrick = playerData.ownedBricks.Find(b => b.data == item.brickData);
         if (ownedBrick != null)
         {
+            if (ownedBrick.quantity >= ownedBrick.maxQuantity)
+            {
+                Debug.Log($"Cap atteint pour {item.displayName} ({ownedBrick.quantity}/{ownedBrick.maxQuantity})");
+                return;
+            }
+
             ownedBrick.quantity++;
         }
         else
