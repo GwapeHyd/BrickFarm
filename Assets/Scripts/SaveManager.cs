@@ -167,4 +167,15 @@ public class SaveManager : MonoBehaviour
     public bool HasSave() => PlayerPrefs.HasKey(SAVE_KEY);
 
     #endregion
+
+#if UNITY_EDITOR
+    [ContextMenu("Reset Save (PlayerPrefs)")]
+    public void ResetSavePlayerPrefs()
+    {
+        // Remplace SAVE_KEY par le nom exact de ta constante si différent
+        PlayerPrefs.DeleteKey(SAVE_KEY);
+        PlayerPrefs.Save();
+        Debug.Log("[SaveManager] Save reset: PlayerPrefs key deleted.");
+    }
+#endif
 }
