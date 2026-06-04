@@ -8,8 +8,7 @@ public class SaveData
     // ── Currencies ───────────────────────────────────────────────────────────
     public int leaf;
     public int mush;
-    public int coin;
-
+    public int coin;    public int skillPoint;
     // ── Stats ────────────────────────────────────────────────────────────────
     public int damage;
     public float damageMultiplier;

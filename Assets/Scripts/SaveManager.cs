@@ -28,6 +28,7 @@ public class SaveManager : MonoBehaviour
         data.leaf     = playerData.leaf;
         data.mush = playerData.mush;
         data.coin     = playerData.coin;
+        data.skillPoint = playerData.skillPoint;
 
         // Stats
         data.damage           = playerData.damage;
@@ -91,6 +92,7 @@ public class SaveManager : MonoBehaviour
         playerData.leaf     = data.leaf;
         playerData.mush = data.mush;
         playerData.coin     = data.coin;
+        playerData.skillPoint = data.skillPoint;
 
         // Stats
         playerData.damage           = data.damage;

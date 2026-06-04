@@ -8,6 +8,8 @@ public class UIManager : MonoBehaviour
     public TMPro.TextMeshProUGUI bushText;
     public TMPro.TextMeshProUGUI mushText;
     public TMPro.TextMeshProUGUI mushroomText;
+    public TMPro.TextMeshProUGUI skillPointText;
+    public GameObject skillTreePanel;
 
     private void Start()
     {
@@ -23,6 +25,8 @@ public class UIManager : MonoBehaviour
             coinText.text = "" + playerData.coin.ToString();
         if (mushText != null)
             mushText.text = "" + playerData.mush.ToString();
+        if (skillPointText != null)
+            skillPointText.text = "" + playerData.skillPoint.ToString();
     }
 
     public void UpdateBrickUI()
@@ -52,5 +56,24 @@ public class UIManager : MonoBehaviour
                 mushroomText.text = "0";
             }
         }
+    }
+
+    public void OpenSkillTree()
+    {
+        if (skillTreePanel != null)
+            skillTreePanel.SetActive(true);
+    }
+
+    /// <summary>
+    /// Ferme le skill tree. Si une victoire de niveau est en attente, lance la transition.
+    /// </summary>
+    public void CloseSkillTree()
+    {
+        if (skillTreePanel != null)
+            skillTreePanel.SetActive(false);
+
+        var levelManager = FindAnyObjectByType<LevelManager>();
+        if (levelManager != null && levelManager.pendingLevelAdvance)
+            levelManager.ProceedToNextLevel();
     }
 }

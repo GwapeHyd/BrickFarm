@@ -23,6 +23,7 @@ public class PlayerData : ScriptableObject
     public int leaf = 0;
     public int mush = 0;
     public int coin = 0;
+    public int skillPoint = 0;
 
 #if UNITY_EDITOR
     [ContextMenu("Reset Player Data")]
@@ -31,6 +32,7 @@ public class PlayerData : ScriptableObject
         leaf = 0;
         coin = 0;
         mush = 0;
+        skillPoint = 0;
         damage = 1;
         damageMultiplier = 1f;
         foreach (var ownedBrick in ownedBricks)

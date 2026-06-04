@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 478612448c09ece4183518e83726cfbb, type: 3}
+  m_Name: Gold+
+  m_EditorClassIdentifier: Assembly-CSharp::SkillData
+  skillId: gold+
+  skillName: Gold +
+  description: +1 gold per brick
+  maxLevel: 5
+  cost: 15
+  costType: 0
+  position: {x: 100, y: 0}
+  children:
+  - {fileID: 11400000, guid: eb2b415a1fa4cfb4a9f4258809dae313, type: 2}
+  icon: {fileID: 21300000, guid: bcef77189f1e7694989d5da7dfd5d7af, type: 3}

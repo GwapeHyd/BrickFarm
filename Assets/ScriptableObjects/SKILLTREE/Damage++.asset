@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 478612448c09ece4183518e83726cfbb, type: 3}
+  m_Name: Damage++
+  m_EditorClassIdentifier: Assembly-CSharp::SkillData
+  skillId: damage++
+  skillName: Damage ++
+  description: +2 ball damages
+  maxLevel: 5
+  cost: 500
+  costType: 0
+  position: {x: 300, y: 0}
+  children:
+  - {fileID: 11400000, guid: 592f6c535cfccfb41bb410a9663ac7e2, type: 2}
+  icon: {fileID: 21300000, guid: 4efb6768e019bb943951b706d991db81, type: 3}

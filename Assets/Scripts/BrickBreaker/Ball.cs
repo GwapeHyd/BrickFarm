@@ -70,11 +70,6 @@ public class Ball : MonoBehaviour
     {
         // Initialement la balle n'est pas lancée
         StopBall();
-
-        if (originalScale == Vector3.zero)
-        {
-            originalScale = Vector3.one;
-        }
     }
 
     private void Update()
@@ -149,8 +144,6 @@ public class Ball : MonoBehaviour
         {
             trail.emitting = true;
         }
-
-        Debug.Log("Ball launched in direction: " + direction);
     }
 
     public void StopBall()

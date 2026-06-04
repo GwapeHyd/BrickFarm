@@ -31,10 +31,12 @@ public class BrickAnimator : MonoBehaviour
         Color c = sr.color;
         c.a = 0f;
         sr.color = c;
+        Debug.Log($"BrickAnimator.Awake sur {gameObject.name} (parent: {transform.parent?.name})");
     }
 
     private void Start()
     {
+        Debug.Log($"BrickAnimator.Start sur {gameObject.name} (parent: {transform.parent?.name})");
         StartCoroutine(Appear());
     }
 
